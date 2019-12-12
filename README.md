@@ -15,7 +15,7 @@ Domain Adaptation (DA) approaches achieved significant improvements in a wide ra
 
 
 ## Dataset
-![PointDA-10](/Figs/PointDA-10.pdf)
+![PointDA-10](/Figs/PointDA-10.png)
 The [PointDA-10](https://drive.google.com/file/d/1LO6ec90UTXWw2QOin30adfDQqEAgApzq/view?usp=sharing) dataset.
 
 ## Requirements
