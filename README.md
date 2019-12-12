@@ -1,4 +1,4 @@
-# 3D Transfer Learning
+# 3D Transfer Learning - PointDAN
 
 This repo contains the source code and dataset for our NeurIPS 2019 paper:
 
