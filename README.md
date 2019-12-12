@@ -6,6 +6,7 @@ This repo contains the source code and dataset for our NeurIPS 2019 paper:
 <br>
 2019 Conference on Neural Information Processing Systems (NeurIPS 2019)
 <br>
+![PointDAN](/Figs/PointDAN.png)
 [paper](http://papers.nips.cc/paper/8940-pointdan-a-multi-scale-3d-domain-adaption-network-for-point-cloud-representation),
 [arXiv](https://arxiv.org/abs/1911.02744),
 [bibtex](http://papers.nips.cc/paper/8940-pointdan-a-multi-scale-3d-domain-adaption-network-for-point-cloud-representation/bibtex)
