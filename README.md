@@ -48,4 +48,5 @@ url = {http://papers.nips.cc/paper/8940-pointdan-a-multi-scale-3d-domain-adaptio
 }
 ```
 
-
+## Contact
+If you have any questions, please contact [Can Qin](qin.ca@husky.neu.edu) or [Haoxuan You](haoxuan.you@columbia.edu).
