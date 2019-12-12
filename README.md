@@ -16,7 +16,7 @@ Domain Adaptation (DA) approaches achieved significant improvements in a wide ra
 
 ## Dataset
 ![PointDA-10](/Figs/PointDA-10.png)
-The [PointDA-10](https://drive.google.com/file/d/1LO6ec90UTXWw2QOin30adfDQqEAgApzq/view?usp=sharing) dataset.
+The [PointDA-10](https://drive.google.com/file/d/1LO6ec90UTXWw2QOin30adfDQqEAgApzq/view?usp=sharing) dataset is extracted from three popular 3D object/scene datasets (i.e., [ModelNet](https://modelnet.cs.princeton.edu/), [ShapeNet](https://shapenet.cs.stanford.edu/iccv17/) and [ScanNet](http://www.scan-net.org/)) for cross-domain 3D objects classification.
 
 ## Requirements
 - Python 3.6
