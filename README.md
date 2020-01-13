@@ -18,7 +18,7 @@ Domain Adaptation (DA) approaches achieved significant improvements in a wide ra
 
 ## Dataset
 ![PointDA-10](/Figs/PointDA-10.png)
-The [PointDA-10](https://drive.google.com/file/d/1LO6ec90UTXWw2QOin30adfDQqEAgApzq/view?usp=sharing) dataset is extracted from three popular 3D object/scene datasets (i.e., [ModelNet](https://modelnet.cs.princeton.edu/), [ShapeNet](https://shapenet.cs.stanford.edu/iccv17/) and [ScanNet](http://www.scan-net.org/)) for cross-domain 3D objects classification.
+The [PointDA-10](https://drive.google.com/file/d/16Ji5NxOwTm10GIEYPOD4xdJlnrs8JKdE/view?usp=sharing) dataset is extracted from three popular 3D object/scene datasets (i.e., [ModelNet](https://modelnet.cs.princeton.edu/), [ShapeNet](https://shapenet.cs.stanford.edu/iccv17/) and [ScanNet](http://www.scan-net.org/)) for cross-domain 3D objects classification.
 
 ## Requirements
 - Python 3.6
@@ -27,12 +27,38 @@ The [PointDA-10](https://drive.google.com/file/d/1LO6ec90UTXWw2QOin30adfDQqEAgAp
 
 ## File Structure
 ```
-Code will come soon.
+.
+├── README.md
+├── logs                            
+├── dataset
+│   └──PointDA_data                              
+│      ├── modelnet                      
+│      ├── scannet
+│      └── shapenet             
+├── dataloader.py
+├── data_utils.py
+├── main.sh
+├── mmd.py
+├── Model.py
+├── model_utils.py
+├── train.py            
+└── train_source.py                                   
 ```
 
+## Data Downlaod
+Download the [PointDA-10](https://drive.google.com/file/d/16Ji5NxOwTm10GIEYPOD4xdJlnrs8JKdE/view?usp=sharing) and extract it as the dataset fold.
+
+## Train & Test
+If you run the experiment on one adaptation scanerio, like scannet to modelnet,
+```
+python train.py -source scannet -target modelnet
+```
+, or run experiments on all adaptation scanerios
+```
+bash main.sh
+```
 
 ## Citation
-
 If you find this project useful for your research, please kindly cite our paper:
 
 ```bibtex
