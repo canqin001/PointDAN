@@ -45,7 +45,7 @@ The [PointDA-10](https://drive.google.com/file/d/16Ji5NxOwTm10GIEYPOD4xdJlnrs8JK
 └── train_source.py                                   
 ```
 
-## Data Downlaod
+## Data Download
 Download the [PointDA-10](https://drive.google.com/file/d/16Ji5NxOwTm10GIEYPOD4xdJlnrs8JKdE/view?usp=sharing) and extract it as the dataset fold.
 
 ## Train & Test
@@ -53,7 +53,7 @@ If you run the experiment on one adaptation scanerio, like scannet to modelnet,
 ```
 python train.py -source scannet -target modelnet
 ```
-, or run experiments on all adaptation scanerios
+, or run experiments on all adaptation scenarios.
 ```
 bash main.sh
 ```
