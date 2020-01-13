@@ -18,7 +18,7 @@ Domain Adaptation (DA) approaches achieved significant improvements in a wide ra
 
 ## Dataset
 ![PointDA-10](/Figs/PointDA-10.png)
-The [PointDA-10](https://drive.google.com/file/d/16Ji5NxOwTm10GIEYPOD4xdJlnrs8JKdE/view?usp=sharing) dataset is extracted from three popular 3D object/scene datasets (i.e., [ModelNet](https://modelnet.cs.princeton.edu/), [ShapeNet](https://shapenet.cs.stanford.edu/iccv17/) and [ScanNet](http://www.scan-net.org/)) for cross-domain 3D objects classification.
+The [PointDA-10](https://drive.google.com/file/d/1-LfJWL5geF9h0Z2QpdTL0n4lShy8wy2J/view?usp=sharing) dataset is extracted from three popular 3D object/scene datasets (i.e., [ModelNet](https://modelnet.cs.princeton.edu/), [ShapeNet](https://shapenet.cs.stanford.edu/iccv17/) and [ScanNet](http://www.scan-net.org/)) for cross-domain 3D objects classification.
 
 ## Requirements
 - Python 3.6
@@ -46,7 +46,7 @@ The [PointDA-10](https://drive.google.com/file/d/16Ji5NxOwTm10GIEYPOD4xdJlnrs8JK
 ```
 
 ## Data Download
-Download the [PointDA-10](https://drive.google.com/file/d/16Ji5NxOwTm10GIEYPOD4xdJlnrs8JKdE/view?usp=sharing) and extract it as the dataset fold.
+Download the [PointDA-10](https://drive.google.com/file/d/1-LfJWL5geF9h0Z2QpdTL0n4lShy8wy2J/view?usp=sharing) and extract it as the dataset fold.
 
 ## Train & Test
 If you run the experiment on one adaptation scanerio, like scannet to modelnet,
