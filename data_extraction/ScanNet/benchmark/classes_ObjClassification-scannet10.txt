@@ -1,0 +1,10 @@
+0	bathtub
+1	bed
+2	shelf
+3	cabinet
+4	chair
+5	lamp
+6	monitor
+7	plant
+8	couch
+9	table
