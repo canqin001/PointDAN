@@ -92,8 +92,8 @@ def main():
     for epoch in range(max_epoch):
 
         lr_schedule.step(epoch=epoch)
-        print(lr_schedule.get_lr())
-        writer.add_scalar('lr', lr_schedule.get_lr(), epoch)
+        print(lr_schedule.get_last_lr())
+        writer.add_scalar('lr', lr_schedule.get_last_lr(), epoch)
 
         model.train()
         loss_total = 0
@@ -129,9 +129,9 @@ def main():
             loss_total = 0
             correct_total = 0
             data_total = 0
-            acc_class = torch.zeros(10, 1)
-            acc_to_class = torch.zeros(10, 1)
-            acc_to_all_class = torch.zeros(10, 10)
+            acc_class = torch.zeros(num_class, 1)
+            acc_to_class = torch.zeros(num_class, 1)
+            acc_to_all_class = torch.zeros(num_class, num_class)
 
             for batch_idx, (data, label) in enumerate(source_test_dataloader):
 
@@ -143,11 +143,11 @@ def main():
 
                 acc = pred == label
 
-                for j in range(0, 10):
+                for j in range(0, num_class):
                     label_j_list = (label == j)
                     acc_class[j] += (pred[acc] == j).sum().cpu().float()
                     acc_to_class[j] += label_j_list.sum().cpu().float()
-                    for k in range(0, 10):
+                    for k in range(0, num_class):
                         acc_to_all_class[j, k] += (pred[label_j_list] == k).sum().cpu().float()
 
                 loss_total += loss.item() * data.size(0)
@@ -159,8 +159,8 @@ def main():
 
             if pred_acc > best_source_test_acc:
                 best_source_test_acc = pred_acc
-            for j in range(0, 10):
-                for k in range(0, 10):
+            for j in range(0, num_class):
+                for k in range(0, num_class):
                     acc_to_all_class[j, k] = acc_to_all_class[j, k] / acc_to_class[j]
             print('Source Test:{} [overall_acc: {:.4f} \t loss: {:.4f} \t Best Source Test Acc: {:.4f}]'.format(
                 epoch, pred_acc, pred_loss, best_source_test_acc
@@ -171,9 +171,9 @@ def main():
             loss_total = 0
             correct_total = 0
             data_total = 0
-            acc_class = torch.zeros(10,1)
-            acc_to_class = torch.zeros(10,1)
-            acc_to_all_class = torch.zeros(10,10)
+            acc_class = torch.zeros(num_class,1)
+            acc_to_class = torch.zeros(num_class,1)
+            acc_to_all_class = torch.zeros(num_class,num_class)
 
             for batch_idx, (data,label) in enumerate(target_test_dataloader1):
 
@@ -185,11 +185,11 @@ def main():
 
                 acc = pred == label
 
-                for j in range(0, 10):
+                for j in range(0, num_class):
                     label_j_list = (label == j)
                     acc_class[j] += (pred[acc] == j).sum().cpu().float()
                     acc_to_class[j] += label_j_list.sum().cpu().float()
-                    for k in range(0, 10):
+                    for k in range(0, num_class):
                         acc_to_all_class[j, k] += (pred[label_j_list] == k).sum().cpu().float()
 
                 loss_total += loss.item() * data.size(0)
@@ -201,8 +201,8 @@ def main():
 
             if pred_acc > best_target_test_acc1:
                 best_target_test_acc1 = pred_acc
-            for j in range(0, 10):
-                for k in range(0, 10):
+            for j in range(0, num_class):
+                for k in range(0, num_class):
                     acc_to_all_class[j, k] = acc_to_all_class[j, k]/acc_to_class[j]
             print ('Target 1:{} [overall_acc: {:.4f} \t loss: {:.4f} \t Best Target 1 Acc: {:.4f}]'.format(
             epoch, pred_acc, pred_loss, best_target_test_acc1
@@ -214,9 +214,9 @@ def main():
             loss_total = 0
             correct_total = 0
             data_total = 0
-            acc_class = torch.zeros(10, 1)
-            acc_to_class = torch.zeros(10, 1)
-            acc_to_all_class = torch.zeros(10, 10)
+            acc_class = torch.zeros(num_class, 1)
+            acc_to_class = torch.zeros(num_class, 1)
+            acc_to_all_class = torch.zeros(num_class, num_class)
 
             for batch_idx, (data, label) in enumerate(target_test_dataloader2):
 
@@ -228,11 +228,11 @@ def main():
 
                 acc = pred == label
 
-                for j in range(0, 10):
+                for j in range(0, num_class):
                     label_j_list = (label == j)
                     acc_class[j] += (pred[acc] == j).sum().cpu().float()
                     acc_to_class[j] += label_j_list.sum().cpu().float()
-                    for k in range(0, 10):
+                    for k in range(0, num_class):
                         acc_to_all_class[j, k] += (pred[label_j_list] == k).sum().cpu().float()
 
                 loss_total += loss.item() * data.size(0)
@@ -244,8 +244,8 @@ def main():
 
             if pred_acc > best_target_test_acc2:
                 best_target_test_acc2 = pred_acc
-            for j in range(0, 10):
-                for k in range(0, 10):
+            for j in range(0, num_class):
+                for k in range(0, num_class):
                     acc_to_all_class[j, k] = acc_to_all_class[j, k] / acc_to_class[j]
             print('Target 2:{} [overall_acc: {:.4f} \t loss: {:.4f} \t Best Target 2 Acc: {:.4f}]'.format(
                 epoch, pred_acc, pred_loss, best_target_test_acc2

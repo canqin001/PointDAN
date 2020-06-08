@@ -98,14 +98,14 @@ class Pointnet_c(nn.Module):
         return x
         
 class Net_MDA(nn.Module):
-    def __init__(self, model_name='Pointnet'):
+    def __init__(self, model_name='Pointnet', num_class=10):
         super(Net_MDA, self).__init__()
         if model_name == 'Pointnet':
             self.g = Pointnet_g() 
             self.attention_s = CALayer(64*64)
             self.attention_t = CALayer(64*64)
-            self.c1 = Pointnet_c()  
-            self.c2 = Pointnet_c() 
+            self.c1 = Pointnet_c(num_class=num_class)  
+            self.c2 = Pointnet_c(num_class=num_class) 
             
     def forward(self, x, constant=1, adaptation=False, node_vis=False, mid_feat=False, node_adaptation_s=False, node_adaptation_t=False):
         x, feat_ori, node_idx = self.g(x, node=True)
