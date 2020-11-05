@@ -13,6 +13,11 @@ from datetime import datetime
 
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument('--folder', '-f', help='Path to pts data folder')
     parser.add_argument('--output', '-o', help='Path to save output')

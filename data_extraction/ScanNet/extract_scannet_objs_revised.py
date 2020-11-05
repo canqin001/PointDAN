@@ -14,6 +14,14 @@ import numpy as np
 
 
 def dir(root, type='f', addroot=True):
+    """
+    Return a list of directories recursively.
+
+    Args:
+        root: (str): write your description
+        type: (todo): write your description
+        addroot: (str): write your description
+    """
     dirList = []
     fileList = []
     root = root + "/"
@@ -42,6 +50,14 @@ def dir(root, type='f', addroot=True):
 
 
 def save_ply(points, colors, filename):
+    """
+    Save a multipolygon file. csv format.
+
+    Args:
+        points: (array): write your description
+        colors: (str): write your description
+        filename: (str): write your description
+    """
     vertex = np.array([tuple(p) for p in points], dtype=[('x', 'f4'), ('y', 'f4'), ('z', 'f4')])
 
     vertex_color = np.array([tuple(c) for c in colors], dtype=[('red', 'u1'), ('green', 'u1'), ('blue', 'u1')])
@@ -64,6 +80,12 @@ def save_ply(points, colors, filename):
 
 
 def pc_getbbox(pc):
+    """
+    Return bounding box for a bounding box.
+
+    Args:
+        pc: (todo): write your description
+    """
     x = []
     y = []
     z = []
@@ -79,6 +101,16 @@ def pc_getbbox(pc):
 
 
 def scene2instances(scene_path, out_root, all_label, label_map, issave_ply):
+    """
+    Convert scene instances
+
+    Args:
+        scene_path: (str): write your description
+        out_root: (str): write your description
+        all_label: (str): write your description
+        label_map: (str): write your description
+        issave_ply: (bool): write your description
+    """
     print("Process Scene:", scene_path)
 
     sceneid = scene_path.strip().split("scene")[1]
@@ -244,6 +276,11 @@ def scene2instances(scene_path, out_root, all_label, label_map, issave_ply):
 
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument('--folder', '-f', help='Path to data folder')
     parser.add_argument('--benchmark', '-b', help='Path to benchmark folder')

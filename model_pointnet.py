@@ -4,6 +4,13 @@ import os
 
 class Pointnet_cls(nn.Module):
     def __init__(self, num_class=40):
+        """
+        Initialize the network.
+
+        Args:
+            self: (todo): write your description
+            num_class: (int): write your description
+        """
         super(Pointnet_cls, self).__init__()
         self.trans_net1 = transform_net(3,3)
         self.trans_net2 = transform_net(64,64)
@@ -20,6 +27,14 @@ class Pointnet_cls(nn.Module):
         self.mlp3 = nn.Linear(256, num_class)
 
     def forward(self, x, adapt = False):
+        """
+        Perform computation.
+
+        Args:
+            self: (todo): write your description
+            x: (todo): write your description
+            adapt: (todo): write your description
+        """
         batch_size = x.size(0)
         point_num = x.size(2)
         
