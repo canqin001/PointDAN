@@ -53,6 +53,11 @@ dir_root = os.path.join(args.datadir, 'PointDA_data/')
 
 # print(dir_root)
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     print ('Start Training\nInitiliazing\n')
     print('src:', args.source)
     print('tar:', args.target) 

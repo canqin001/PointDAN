@@ -5,6 +5,12 @@ import numpy as np
 import os
 
 def mkdir(path):
+    """
+    Create a folder
+
+    Args:
+        path: (str): write your description
+    """
  
     folder = os.path.exists(path)
  
@@ -18,6 +24,14 @@ def mkdir(path):
 
 
 def draw_pc(pc, show=False, save_dir=None):
+    """
+    Draw an interactive figure.
+
+    Args:
+        pc: (int): write your description
+        show: (bool): write your description
+        save_dir: (str): write your description
+    """
     ax = plt.figure().add_subplot(111, projection='3d')
     ax.scatter(pc[:, 0], pc[:, 1], pc[:, 2], marker='.')
     ax.grid(False)

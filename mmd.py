@@ -15,6 +15,13 @@ min_var_est = 1e-8
 # f_of_X: batch_size * k
 # f_of_Y: batch_size * k
 def linear_mmd2(f_of_X, f_of_Y):
+    """
+    Computes the f_of of f_2.
+
+    Args:
+        f_of_X: (todo): write your description
+        f_of_Y: (todo): write your description
+    """
     loss = 0.0
     delta = f_of_X - f_of_Y
     #pdb.set_trace()
@@ -27,6 +34,16 @@ def linear_mmd2(f_of_X, f_of_Y):
 # f_of_X: batch_size * k
 # f_of_Y: batch_size * k
 def poly_mmd2(f_of_X, f_of_Y, d=2, alpha=1.0, c=2.0):
+    """
+    Compute the derivative of f_of_Xd2.
+
+    Args:
+        f_of_X: (todo): write your description
+        f_of_Y: (todo): write your description
+        d: (todo): write your description
+        alpha: (float): write your description
+        c: (todo): write your description
+    """
     K_XX = (alpha * (f_of_X[:-1] * f_of_X[1:]).sum(1) + c)
     K_XX_mean = torch.mean(K_XX.pow(d))
 
@@ -43,6 +60,14 @@ def poly_mmd2(f_of_X, f_of_Y, d=2, alpha=1.0, c=2.0):
 
 
 def _mix_rbf_kernel(X, Y, sigma_list):
+    """
+    Mixes the kernel.
+
+    Args:
+        X: (todo): write your description
+        Y: (array): write your description
+        sigma_list: (list): write your description
+    """
     assert(X.size(0) == Y.size(0))
     m = X.size(0)
 
@@ -61,12 +86,30 @@ def _mix_rbf_kernel(X, Y, sigma_list):
 
 
 def mix_rbf_mmd2(X, Y, sigma_list, biased=True):
+    """
+    Computes the squared squared squared
+
+    Args:
+        X: (int): write your description
+        Y: (int): write your description
+        sigma_list: (list): write your description
+        biased: (todo): write your description
+    """
     K_XX, K_XY, K_YY, d = _mix_rbf_kernel(X, Y, sigma_list)
     # return _mmd2(K_XX, K_XY, K_YY, const_diagonal=d, biased=biased)
     return _mmd2(K_XX, K_XY, K_YY, const_diagonal=False, biased=biased)
 
 
 def mix_rbf_mmd2_and_ratio(X, Y, sigma_list, biased=True):
+    """
+    Mixes the sigma
+
+    Args:
+        X: (int): write your description
+        Y: (int): write your description
+        sigma_list: (list): write your description
+        biased: (todo): write your description
+    """
     K_XX, K_XY, K_YY, d = _mix_rbf_kernel(X, Y, sigma_list)
     # return _mmd2_and_ratio(K_XX, K_XY, K_YY, const_diagonal=d, biased=biased)
     return _mmd2_and_ratio(K_XX, K_XY, K_YY, const_diagonal=False, biased=biased)
@@ -78,6 +121,16 @@ def mix_rbf_mmd2_and_ratio(X, Y, sigma_list, biased=True):
 
 
 def _mmd2(K_XX, K_XY, K_YY, const_diagonal=False, biased=False):
+    """
+    Compute the 2nd derivative of the covariance.
+
+    Args:
+        K_XX: (todo): write your description
+        K_XY: (array): write your description
+        K_YY: (array): write your description
+        const_diagonal: (todo): write your description
+        biased: (todo): write your description
+    """
     m = K_XX.size(0)    # assume X, Y are same shape
 
     # Get the various sums of kernels that we'll use
@@ -112,12 +165,32 @@ def _mmd2(K_XX, K_XY, K_YY, const_diagonal=False, biased=False):
 
 
 def _mmd2_and_ratio(K_XX, K_XY, K_YY, const_diagonal=False, biased=False):
+    """
+    Compute the mean and - variance.
+
+    Args:
+        K_XX: (todo): write your description
+        K_XY: (int): write your description
+        K_YY: (todo): write your description
+        const_diagonal: (todo): write your description
+        biased: (todo): write your description
+    """
     mmd2, var_est = _mmd2_and_variance(K_XX, K_XY, K_YY, const_diagonal=const_diagonal, biased=biased)
     loss = mmd2 / torch.sqrt(torch.clamp(var_est, min=min_var_est))
     return loss, mmd2, var_est
 
 
 def _mmd2_and_variance(K_XX, K_XY, K_YY, const_diagonal=False, biased=False):
+    """
+    Compute the derivative of the derivative.
+
+    Args:
+        K_XX: (array): write your description
+        K_XY: (array): write your description
+        K_YY: (array): write your description
+        const_diagonal: (todo): write your description
+        biased: (str): write your description
+    """
     m = K_XX.size(0)    # assume X, Y are same shape
 
     # Get the various sums of kernels that we'll use

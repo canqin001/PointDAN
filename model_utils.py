@@ -5,6 +5,16 @@ import point_utils
 
 class conv_2d(nn.Module):
     def __init__(self, in_ch, out_ch, kernel, activation='relu'):
+        """
+        Initialize a convolution layer.
+
+        Args:
+            self: (todo): write your description
+            in_ch: (int): write your description
+            out_ch: (str): write your description
+            kernel: (todo): write your description
+            activation: (str): write your description
+        """
         super(conv_2d, self).__init__()
         if activation == 'relu':
             self.conv = nn.Sequential(
@@ -27,12 +37,29 @@ class conv_2d(nn.Module):
 
 
     def forward(self, x):
+        """
+        Forward computation.
+
+        Args:
+            self: (todo): write your description
+            x: (todo): write your description
+        """
         x = self.conv(x)
         return x
 
 
 class fc_layer(nn.Module):
     def __init__(self, in_ch, out_ch, bn=True, activation='leakyrelu'):
+        """
+        Initialize layer : class.
+
+        Args:
+            self: (todo): write your description
+            in_ch: (int): write your description
+            out_ch: (str): write your description
+            bn: (int): write your description
+            activation: (str): write your description
+        """
         super(fc_layer, self).__init__()
         if activation == 'relu':
             self.ac = nn.ReLU(inplace=True)
@@ -51,6 +78,13 @@ class fc_layer(nn.Module):
             )
 
     def forward(self, x):
+        """
+        Forward computation.
+
+        Args:
+            self: (todo): write your description
+            x: (todo): write your description
+        """
         x = self.fc(x)
         return x
 
@@ -58,6 +92,14 @@ class fc_layer(nn.Module):
 
 class transform_net(nn.Module):
     def __init__(self, in_ch, K=3):
+        """
+        Initialize the convolution layer.
+
+        Args:
+            self: (todo): write your description
+            in_ch: (int): write your description
+            K: (int): write your description
+        """
         super(transform_net, self).__init__()
         self.K = K
         self.conv2d1 = conv_2d(in_ch, 64, 1)
@@ -71,6 +113,13 @@ class transform_net(nn.Module):
 
 
     def forward(self, x):
+        """
+        Forward computation.
+
+        Args:
+            self: (todo): write your description
+            x: (todo): write your description
+        """
         x = self.conv2d1(x)
         x = self.conv2d2(x)
         x = self.conv2d3(x)
@@ -90,6 +139,17 @@ class transform_net(nn.Module):
 
 class adapt_layer_off(nn.Module):
     def __init__(self, num_node=64, offset_dim=3, trans_dim_in=64, trans_dim_out=64, fc_dim=64):
+        """
+        Initialize the network.
+
+        Args:
+            self: (todo): write your description
+            num_node: (int): write your description
+            offset_dim: (int): write your description
+            trans_dim_in: (int): write your description
+            trans_dim_out: (int): write your description
+            fc_dim: (int): write your description
+        """
         super(adapt_layer_off, self).__init__()
         self.num_node = num_node
         self.offset_dim = offset_dim
@@ -100,6 +160,14 @@ class adapt_layer_off(nn.Module):
         self.residual = conv_2d(trans_dim_in, fc_dim, 1)
 
     def forward(self, input_fea, input_loc):
+        """
+        Forward forward forward computation_fea.
+
+        Args:
+            self: (todo): write your description
+            input_fea: (todo): write your description
+            input_loc: (todo): write your description
+        """
         # Initialize node
         fpoint_idx = point_utils.farthest_point_sample(input_loc, self.num_node)  # (B, num_node)
         fpoint_loc = point_utils.index_points(input_loc, fpoint_idx)  # (B, 3, num_node)

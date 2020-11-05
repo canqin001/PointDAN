@@ -10,12 +10,26 @@ from data_utils import *
 
 
 def load_dir(data_dir, name='train_files.txt'):
+    """
+    Load a list of data_dir.
+
+    Args:
+        data_dir: (str): write your description
+        name: (str): write your description
+    """
     with open(os.path.join(data_dir,name),'r') as f:
         lines = f.readlines()
     return [os.path.join(data_dir, line.rstrip().split('/')[-1]) for line in lines]
 
 
 def get_info(shapes_dir, isView=False):
+    """
+    Return a dict of shape_dir and shape_dict
+
+    Args:
+        shapes_dir: (str): write your description
+        isView: (str): write your description
+    """
     names_dict = {}
     if isView:
         for shape_dir in shapes_dir:
@@ -34,6 +48,16 @@ def get_info(shapes_dir, isView=False):
 
 class Modelnet40_data(data.Dataset):
     def __init__(self, pc_root, status='train', pc_input_num=1024, aug=True):
+        """
+        Initialize the module.
+
+        Args:
+            self: (todo): write your description
+            pc_root: (todo): write your description
+            status: (str): write your description
+            pc_input_num: (int): write your description
+            aug: (todo): write your description
+        """
         super(Modelnet40_data, self).__init__()
 
         self.status = status
@@ -60,6 +84,13 @@ class Modelnet40_data(data.Dataset):
         print(f'{status} data num: {len(self.pc_list)}')
 
     def __getitem__(self, idx):
+        """
+        Returns the index of a tensor.
+
+        Args:
+            self: (todo): write your description
+            idx: (list): write your description
+        """
         lbl = self.lbl_list[idx]
         pc = np.load(self.pc_list[idx])[:self.pc_input_num].astype(np.float32)
         pc = normal_pc(pc)
@@ -71,11 +102,28 @@ class Modelnet40_data(data.Dataset):
         return torch.from_numpy(pc).type(torch.FloatTensor), lbl
 
     def __len__(self):
+        """
+        Returns the number of frames.
+
+        Args:
+            self: (todo): write your description
+        """
         return len(self.pc_list)
 
 
 class Shapenet_data(data.Dataset):
     def __init__(self, pc_root, status='train', pc_input_num=1024, aug=True, data_type='*.npy'):
+        """
+        Initialize the data directory.
+
+        Args:
+            self: (todo): write your description
+            pc_root: (todo): write your description
+            status: (str): write your description
+            pc_input_num: (int): write your description
+            aug: (todo): write your description
+            data_type: (str): write your description
+        """
         super(Shapenet_data, self).__init__()
 
         self.status = status
@@ -105,6 +153,13 @@ class Shapenet_data(data.Dataset):
         print(f'{status} data num: {len(self.pc_list)}')
 
     def __getitem__(self, idx):
+        """
+        Return the index of a tensor.
+
+        Args:
+            self: (todo): write your description
+            idx: (list): write your description
+        """
         lbl = self.lbl_list[idx]
         if self.data_type == '*.pts':
             pc = np.array([[float(value) for value in xyz.split(' ')]
@@ -121,11 +176,27 @@ class Shapenet_data(data.Dataset):
         return torch.from_numpy(pc).type(torch.FloatTensor), lbl
 
     def __len__(self):
+        """
+        Returns the number of frames.
+
+        Args:
+            self: (todo): write your description
+        """
         return len(self.pc_list)
 
 class Scannet_data_h5(data.Dataset):
 
     def __init__(self, pc_root, status='train', pc_input_num=1024, aug=True):
+        """
+        Initialize all data.
+
+        Args:
+            self: (todo): write your description
+            pc_root: (todo): write your description
+            status: (str): write your description
+            pc_input_num: (int): write your description
+            aug: (todo): write your description
+        """
         super(Scannet_data_h5, self).__init__()
         self.num_points = pc_input_num
         self.status = status
@@ -154,6 +225,13 @@ class Scannet_data_h5(data.Dataset):
         self.label = np.concatenate(label_list, axis=0)
 
     def __getitem__(self, idx):
+        """
+        Return a tensor.
+
+        Args:
+            self: (todo): write your description
+            idx: (list): write your description
+        """
         point_idx = np.arange(0, self.num_points)
         np.random.shuffle(point_idx)
         point = self.data[idx][point_idx][:, :3]
@@ -167,6 +245,12 @@ class Scannet_data_h5(data.Dataset):
         pc = np.expand_dims(pc.transpose(), axis=2)
         return torch.from_numpy(pc).type(torch.FloatTensor), label
     def __len__(self):
+        """
+        Return the length of the array.
+
+        Args:
+            self: (todo): write your description
+        """
         return self.data.shape[0]
 
 

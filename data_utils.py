@@ -123,6 +123,12 @@ def rotate_perturbation_point_cloud(pc, angle_sigma=0.06, angle_clip=0.18):
 
 
 def pc_augment(pc):
+    """
+    Decorator of the cloud - like object.
+
+    Args:
+        pc: (todo): write your description
+    """
     pc = rotation_point_cloud(pc)
     pc = jitter_point_cloud(pc)
     # pc = random_scale_point_cloud(pc)

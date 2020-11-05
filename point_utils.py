@@ -131,6 +131,12 @@ def upsample_inter(xyz1, xyz2, points1, points2, k):
 
 
 def pairwise_distance(x):
+    """
+    Computes distance between two points.
+
+    Args:
+        x: (array): write your description
+    """
     batch_size = x.size(0)
     point_cloud = torch.squeeze(x)
     if batch_size == 1:
@@ -144,6 +150,14 @@ def pairwise_distance(x):
 
 
 def gather_neighbor(x, nn_idx, n_neighbor):
+    """
+    Gather the nearest neighbors of the nearest neighbor.
+
+    Args:
+        x: (array): write your description
+        nn_idx: (str): write your description
+        n_neighbor: (int): write your description
+    """
     x = torch.squeeze(x)
     batch_size = x.size()[0]
     num_dim = x.size()[1]
@@ -154,6 +168,14 @@ def gather_neighbor(x, nn_idx, n_neighbor):
     return pc_n
 
 def get_neighbor_feature(x, n_point, n_neighbor):
+    """
+    Find the nearest neighbors of a feature.
+
+    Args:
+        x: (todo): write your description
+        n_point: (str): write your description
+        n_neighbor: (int): write your description
+    """
     if len(x.size()) == 3:
         x = x.unsqueeze()
     adj_matrix = pairwise_distance(x)
@@ -169,6 +191,13 @@ def get_neighbor_feature(x, n_point, n_neighbor):
 
 
 def get_edge_feature(x, n_neighbor):
+    """
+    Computes the distance between two points.
+
+    Args:
+        x: (todo): write your description
+        n_neighbor: (int): write your description
+    """
     if len(x.size()) == 3:
         x = x.unsqueeze(3)
     adj_matrix = pairwise_distance(x)

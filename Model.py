@@ -6,6 +6,14 @@ import torch.nn.functional as F
 # Channel Attention
 class CALayer(nn.Module):
     def __init__(self, channel, reduction=8):
+        """
+        Initialize the network.
+
+        Args:
+            self: (todo): write your description
+            channel: (todo): write your description
+            reduction: (todo): write your description
+        """
         super(CALayer, self).__init__()
         # feature channel downscale and upscale --> channel weight
         self.conv_du = nn.Sequential(
@@ -17,6 +25,13 @@ class CALayer(nn.Module):
         self.bn = nn.BatchNorm1d(4096)
 
     def forward(self, x):
+        """
+        Forward computation of the image.
+
+        Args:
+            self: (todo): write your description
+            x: (todo): write your description
+        """
         y = self.conv_du(x)
         y = x * y + x
         y = y.view(y.shape[0], -1)
@@ -27,20 +42,54 @@ class CALayer(nn.Module):
 # Grad Reversal
 class GradReverse(torch.autograd.Function):
     def __init__(self, lambd):
+        """
+        Initialize the dsbd
+
+        Args:
+            self: (todo): write your description
+            lambd: (float): write your description
+        """
         self.lambd = lambd
 
     def forward(self, x):
+        """
+        Return the next item from x.
+
+        Args:
+            self: (todo): write your description
+            x: (todo): write your description
+        """
         return x.view_as(x)
 
     def backward(self, grad_output):
+        """
+        Perform backward backward pass.
+
+        Args:
+            self: (todo): write your description
+            grad_output: (bool): write your description
+        """
         return (grad_output * -self.lambd)
 
 def grad_reverse(x, lambd=1.0):
+    """
+    Reverse gradient.
+
+    Args:
+        x: (int): write your description
+        lambd: (todo): write your description
+    """
     return GradReverse(lambd)(x)
 
 # Generator
 class Pointnet_g(nn.Module):
     def __init__(self):
+        """
+        Initialize layer
+
+        Args:
+            self: (todo): write your description
+        """
         super(Pointnet_g, self).__init__()
         self.trans_net1 = transform_net(3, 3)
         self.trans_net2 = transform_net(64, 64)
@@ -53,6 +102,14 @@ class Pointnet_g(nn.Module):
         self.bn1 = nn.BatchNorm1d(1024)
 
     def forward(self, x, node = False):
+        """
+        Forward computation.
+
+        Args:
+            self: (todo): write your description
+            x: (todo): write your description
+            node: (todo): write your description
+        """
         x_loc = x.squeeze(-1)
 
         transform = self.trans_net1(x)
@@ -90,15 +147,36 @@ class Pointnet_g(nn.Module):
 # Classifier
 class Pointnet_c(nn.Module):
     def __init__(self, num_class=10):
+        """
+        Initialize the network.
+
+        Args:
+            self: (todo): write your description
+            num_class: (int): write your description
+        """
         super(Pointnet_c, self).__init__()
         self.fc = nn.Linear(1024, num_class)
         
     def forward(self, x):
+        """
+        Forward computation.
+
+        Args:
+            self: (todo): write your description
+            x: (todo): write your description
+        """
         x = self.fc(x)
         return x
         
 class Net_MDA(nn.Module):
     def __init__(self, model_name='Pointnet'):
+        """
+        Initialize the network.
+
+        Args:
+            self: (todo): write your description
+            model_name: (str): write your description
+        """
         super(Net_MDA, self).__init__()
         if model_name == 'Pointnet':
             self.g = Pointnet_g() 
@@ -108,6 +186,19 @@ class Net_MDA(nn.Module):
             self.c2 = Pointnet_c() 
             
     def forward(self, x, constant=1, adaptation=False, node_vis=False, mid_feat=False, node_adaptation_s=False, node_adaptation_t=False):
+        """
+        Forward computation.
+
+        Args:
+            self: (todo): write your description
+            x: (todo): write your description
+            constant: (todo): write your description
+            adaptation: (todo): write your description
+            node_vis: (todo): write your description
+            mid_feat: (todo): write your description
+            node_adaptation_s: (todo): write your description
+            node_adaptation_t: (todo): write your description
+        """
         x, feat_ori, node_idx = self.g(x, node=True)
         batch_size = feat_ori.size(0)
 
