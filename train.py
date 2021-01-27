@@ -83,7 +83,7 @@ def main():
 
     # Model
 
-    model = Model.Net_MDA()
+    model = Model.Net_MDA(num_class=num_class)
     model = model.to(device=device)
 
     criterion = nn.CrossEntropyLoss()
@@ -138,8 +138,8 @@ def main():
         lr_schedule_c.step(epoch=epoch)
         adjust_learning_rate(optimizer_dis, epoch)
 
-        writer.add_scalar('lr_g', lr_schedule_g.get_lr()[0], epoch)
-        writer.add_scalar('lr_c', lr_schedule_c.get_lr()[0], epoch)
+        writer.add_scalar('lr_g', lr_schedule_g.get_last_lr()[0], epoch)
+        writer.add_scalar('lr_c', lr_schedule_c.get_last_lr()[0], epoch)
 
         model.train()
 
@@ -216,9 +216,9 @@ def main():
             loss_total = 0
             correct_total = 0
             data_total = 0
-            acc_class = torch.zeros(10,1)
-            acc_to_class = torch.zeros(10,1)
-            acc_to_all_class = torch.zeros(10,10)
+            acc_class = torch.zeros(num_class,1)
+            acc_to_class = torch.zeros(num_class,1)
+            acc_to_all_class = torch.zeros(num_class,num_class)
 
             for batch_idx, (data,label) in enumerate(target_test_dataloader1):
                 data = data.to(device=device)
